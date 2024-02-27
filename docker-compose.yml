@@ -1,0 +1,17 @@
+services:
+    django:
+        build: .
+        container_name: django-arista
+        command: >
+            sh -c "
+                python manage.py makemigrations &&
+                python manage.py migrate --noinput &&
+                python manage.py runserver 0.0.0.0:8000"
+        volumes:
+            - .:/usr/src/app/
+            - ./static:/usr/src/app/static
+        ports:
+            - "8000:8000"
+        env_file:
+            - docker-env
+        restart: on-failure
