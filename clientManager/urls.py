@@ -19,7 +19,7 @@ from django.urls import path, include
 from django.http import HttpResponse
 
 def welcome(request):
-    return HttpResponse("<H1> Welcome to client manager backend service </H1>")
+    return HttpResponse("<H1 align=center> Welcome to client manager backend service </H1>")
 
 urlpatterns = [
     path('', welcome), 
