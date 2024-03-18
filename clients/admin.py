@@ -31,13 +31,15 @@ from .models import Client
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):
     list_display = ('clientName', 'user', 'clientIP', 'clientPort', 'created_at', 'updated_at')
-    search_fields = ('clientName', 'user__name')
+    search_fields = ('clientName', 'user__username')  # Update search field to match the actual field name
     list_filter = ('created_at', 'updated_at')
     readonly_fields = ('created_at', 'updated_at')
     filter_horizontal = ()
-
+    
     fieldsets = (
-        (None, {'fields': ('clientName', 'group')}),
-        ('Client Details', {'fields': ('clientIP', 'clientPort', 'clientUsername', 'clientPassword', 'clientLab', 'traffic_profile', 'description')}),
+        (None, {'fields': ('clientName', 'user')}),
+        ('Client Details', {'fields': ('clientIP', 'clientPort', 'clientUsername', 'clientPassword', 'clientLab', 'traffic_profile', 'description',
+                                       'interface', 'ssidname', 'bssid', 'hwaddr', 'rssi', 'txpower', 'channel', 'channelwidth', 'channelband',
+                                       'security', 'phymode', 'phyrate', 'noisemeasurement', 'status')}),
         ('Timestamps', {'fields': ('created_at', 'updated_at'), 'classes': ('collapse',)}),
     )
