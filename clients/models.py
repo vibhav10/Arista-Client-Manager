@@ -24,6 +24,7 @@ class Client(models.Model):
     clientLab = models.CharField(max_length=255)
     traffic_profile = models.CharField(max_length=255)
     description = models.TextField()
+    interface = models.CharField(max_length=255)
     ssid = models.CharField(max_length=255, null=True, blank=True)
     bssid = models.CharField(max_length=255, null=True, blank=True)
     hwaddr = models.CharField(max_length=255, null=True, blank=True)
