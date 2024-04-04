@@ -8,6 +8,7 @@ from rest_framework import permissions
 from users.auth import TokenAuthentication
 import requests
 from rest_framework import generics
+import json
 
     
 
@@ -92,7 +93,6 @@ class ClientDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
         return Response(serializer.data)
     
     def put(self, request):
-        id = request.query_params.get('id')
         client = self.get_object(id)
         serializer = self.serializer_class(client, data=request.data)
         if serializer.is_valid():
@@ -112,7 +112,10 @@ class ClientDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request):
-        id = request.query_params.get('id')
-        client = self.get_object(id)
-        client.delete()
+        id_list_str = request.data.get('id')
+        id_list = json.loads(id_list_str)
+        print(id_list)
+        for id in id_list:
+            client = self.get_object(id)
+            client.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
