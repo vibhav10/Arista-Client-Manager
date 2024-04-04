@@ -68,9 +68,9 @@ class ClientListAPIView(APIView):
                     setattr(instance, key, value)
                 setattr(instance, 'status', True)
                 instance.save()
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
+                return Response({"message": "Client added successfully."}, status=status.HTTP_201_CREATED)
             else:
-                return Response({"message": "Initial data saved but failed to fetch the rest of the info"}, status=status.HTTP_201_CREATED)
+                return Response({"message": "Client added but could not be reached"}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
