@@ -33,7 +33,7 @@ class Client(models.Model):
     updated_at = models.DateTimeField(auto_now=True, blank=True)
 
     class Meta:
-        unique_together = ('clientIP', 'clientPort')
+        unique_together = ('ethernet_ip', 'client_port')
 
     def __str__(self):
         return self.description + ' - ' + self.clientIP + ':' + str(self.clientPort)
