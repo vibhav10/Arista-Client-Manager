@@ -11,8 +11,9 @@ class Client(models.Model):
     client_username = models.CharField(max_length=255)
     client_password = models.CharField(max_length=255)
     client_lab = models.CharField(max_length=255)
-    interface = models.CharField(max_length=255)
-    description = models.TextField()
+    interface_name = models.CharField(max_length=255)
+    description = models.TextField(null=True, blank=True)
+
 
     #dynamic fields
     ethernet_status = models.BooleanField(default=False)
@@ -26,11 +27,20 @@ class Client(models.Model):
     channel_band = models.CharField(max_length=255, null=True, blank=True)
     security = models.CharField(max_length=255, null=True, blank=True)
     phymode = models.CharField(max_length=255, null=True, blank=True)
-    phyrate = models.CharField(max_length=255, null=True, blank=True)
     noise_measurement = models.CharField(max_length=255, null=True, blank=True)
-    wifi_status = models.BooleanField(default=False)
+    wifi_status = models.CharField(max_length=255, default=False)
+    wifi_ip = models.GenericIPAddressField(null=True, blank=True)
+    operating_system = models.CharField(max_length=255, null=True, blank=True)
+    transmit_rate = models.CharField(max_length=255, null=True, blank=True)
+    receive_rate = models.CharField(max_length=255, null=True, blank=True)
+    signal_quality = models.CharField(max_length=255, null=True, blank=True)
+    hostname = models.CharField(max_length=255, null=True, blank=True)
+    ipv6_address = models.TextField(null=True, blank=True)
+
+    #date information
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True)
+
 
     class Meta:
         unique_together = ('ethernet_ip', 'client_port')
@@ -51,7 +61,6 @@ class Client(models.Model):
             self.channel_band = None
             self.security = None
             self.phymode = None
-            self.phyrate = None
             self.noise_measurement = None
             self.wifi_status = False
         super(Client, self).save(*args, **kwargs)

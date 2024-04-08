@@ -2,7 +2,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Client
-from .serializers import  ClientSerializer
+from .serializers import  ClientSerializer, ClientUpdateSerializer
 from django.http import Http404
 from rest_framework import permissions
 from users.auth import TokenAuthentication
@@ -22,18 +22,25 @@ class ClientListCreateAPIView(APIView):
     '''
 
     API_TO_CLIENT_MODEL_MAPPING = {
-        "ssidname": "ssid_name",
-        "bssid": "bssid",
-        "hwaddr": "hwaddr",
-        "rssi": "rssi",
-        "txpower": "txpower",
-        "channel": "channel",
-        "channelwidth": "channel_width",
-        "channelband": "channel_band",
-        "security": "security",
-        "phymode": "phymode",
-        "phyrate": "phyrate",
-        "noisemeasurement": "noise_measurement"
+    "ssidname": "ssid_name",
+    "bssid": "bssid",
+    "hwaddr": "hwaddr",
+    "rssi": "rssi",
+    "txpower": "txpower",
+    "channel": "channel",
+    "channelwidth": "channel_width",
+    "channelband": "channel_band",
+    "security": "security",
+    "phymode": "phymode",
+    "noisemeasurement": "noise_measurement",
+    "transmitrate": "transmit_rate",
+    "receiverate": "receive_rate",
+    "signalquality": "signal_quality",
+    "status": "wifi_status",
+    "os": "operating_system",
+    "ipv4address": "wifi_ip",
+    "hostname": "hostname",
+    "ipv6addresses": "ipv6_address"
     }
 
     '''
@@ -45,6 +52,7 @@ class ClientListCreateAPIView(APIView):
     
     def check_reachability(self, ethernet_ip, client_port):
         url = f"http://{ethernet_ip}:{client_port}/version"
+        print(url)
         try:
             response = requests.get(url)
             if response.status_code == 200:
@@ -88,13 +96,15 @@ class ClientListCreateAPIView(APIView):
         if not clients:
             return Response({"message": "No clients found"}, status=status.HTTP_404_NOT_FOUND)
         for client in clients:
-            self.update_interface_info(client.ethernet_ip, client.client_port, client.interface)
+            self.update_interface_info(client.ethernet_ip, client.client_port, client.interface_name)
         clients = self.get_queryset().order_by('-created_at')
         serializer = self.serializer_class(clients, many=True)
         return Response(serializer.data)
 
     
     def post(self, request):
+        user = self.request.user
+        request.data['user'] = user.id
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             ethernet_ip = request.data.get('ethernet_ip')
@@ -127,15 +137,17 @@ class ClientModifyAPIView(generics.RetrieveUpdateDestroyAPIView):
     def put(self, request):
         id = request.data.get('id')
         client = self.get_object(id)
-        serializer = self.serializer_class(client, data=request.data, partial=True)
+        serializer = ClientUpdateSerializer(client, data=request.data)
+        
         if serializer.is_valid():
             ethernet_ip = request.data.get('ethernet_ip')
             client_port = request.data.get('client_port')
-            if not self.check_reachability(ethernet_ip, client_port):
+            if not ClientListCreateAPIView().check_reachability(ethernet_ip, client_port):
                 return Response({"message": "Client could not to be reached, hence not updating it"}, status=status.HTTP_400_BAD_REQUEST)
             serializer.save()
             return Response({"message": "Client updated successfully."}, status=status.HTTP_201_CREATED) 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request):
         id_list_str = request.data.get('id')
