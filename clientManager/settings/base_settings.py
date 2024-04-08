@@ -134,6 +134,17 @@ REST_FRAMEWORK = {
 }
 
 
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        "Token": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }   
+    },
+    'USE_SESSION_AUTH': False,
+
+}
 
 #SMTP SETTINGS
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

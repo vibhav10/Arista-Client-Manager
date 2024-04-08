@@ -24,7 +24,7 @@ STATIC_URL = 'static/'
 STATIC_ROOT = '/home/vibha/ticc/static/'
 
 # CSRF SETTINGS
-CSRF_TRUSTED_ORIGINS = ['https://*ticcapi.servatom.com']
+CSRF_TRUSTED_ORIGINS = ['*']
 
 
 

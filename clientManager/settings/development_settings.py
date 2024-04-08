@@ -19,7 +19,8 @@ STATIC_URL = 'static/'
 
 
 # # CSRF SETTINGS
-# CSRF_TRUSTED_ORIGINS = ['http://*']
+#CSRF_TRUSTED_ORIGINS = ['https://*', 'http://*']
+CSRF_TRUSTED_ORIGINS = ['https://d28f-115-112-36-43.ngrok-free.app']
 
 # # CORS SETTINGS
-# CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = True
