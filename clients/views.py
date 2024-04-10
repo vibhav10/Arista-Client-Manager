@@ -9,9 +9,14 @@ from users.auth import TokenAuthentication
 import requests
 from rest_framework import generics
 import json
-
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
     
 
+
+'''
+This class is used to retrieve all clients and add a new client.
+'''
 class ClientListCreateAPIView(APIView):
     permission_classes = [permissions.IsAuthenticated]
     authentication_classes = [TokenAuthentication]
@@ -54,7 +59,7 @@ class ClientListCreateAPIView(APIView):
         url = f"http://{ethernet_ip}:{client_port}/version"
         print(url)
         try:
-            response = requests.get(url)
+            response = requests.get(url, timeout=1)
             if response.status_code == 200:
                 return True
         except:
@@ -91,6 +96,10 @@ class ClientListCreateAPIView(APIView):
     API methods
     '''
     
+    @swagger_auto_schema(
+        responses={200: ClientSerializer(many=True)},
+        operation_summary="Retrieve all clients",
+    )
     def get(self, request):
         clients = self.get_queryset()
         if not clients:
@@ -102,6 +111,12 @@ class ClientListCreateAPIView(APIView):
         return Response(serializer.data)
 
     
+
+    @swagger_auto_schema(
+        request_body=ClientSerializer,
+        responses={201: 'Client added successfully.', 400: 'Client could not be reached'},
+        operation_summary="Add a client",
+    )
     def post(self, request):
         user = self.request.user
         request.data['user'] = user.id
@@ -113,27 +128,58 @@ class ClientListCreateAPIView(APIView):
                 return Response({"message": "Client could not be reached"}, status=status.HTTP_400_BAD_REQUEST)
             serializer.save()
             return Response({"message": "Client added successfully."}, status=status.HTTP_201_CREATED) 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"message": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
 
+'''
+This class is used to retrieve, update and delete a client.
+'''
 class ClientModifyAPIView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAuthenticated]
     authentication_classes = [TokenAuthentication]
     serializer_class = ClientSerializer
 
+
+    '''
+    Helper methods
+    '''
+
+    # Get the client object
     def get_object(self, id):
         try:
             return Client.objects.get(user=self.request.user, id=id)
         except Client.DoesNotExist:
             raise Http404
 
+
+    
+    '''
+    API methods
+    '''
+
+    
+    @swagger_auto_schema( 
+        manual_parameters=[
+            openapi.Parameter('id', openapi.IN_QUERY, type=openapi.TYPE_INTEGER, required=True),
+        ],
+        responses={200: ClientSerializer},
+        operation_summary="Retrieve a client",
+    )
+    # Retrieve a client
     def get(self, request):
         id = request.query_params.get('id')
         client = self.get_object(id)
         serializer = self.serializer_class(client)
         return Response(serializer.data)
     
+
+    @swagger_auto_schema(
+        request_body=ClientUpdateSerializer,
+        responses={201: 'Client updated successfully.', 400: 'Client could not be reached'},
+        operation_summary="Update a client",
+    )
+    # Update a client
     def put(self, request):
         id = request.data.get('id')
         client = self.get_object(id)
@@ -143,12 +189,24 @@ class ClientModifyAPIView(generics.RetrieveUpdateDestroyAPIView):
             ethernet_ip = request.data.get('ethernet_ip')
             client_port = request.data.get('client_port')
             if not ClientListCreateAPIView().check_reachability(ethernet_ip, client_port):
-                return Response({"message": "Client could not to be reached, hence not updating it"}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({"message": "Update cannot proceed as the client is not accessible."}, status=status.HTTP_400_BAD_REQUEST)
             serializer.save()
             return Response({"message": "Client updated successfully."}, status=status.HTTP_201_CREATED) 
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    @swagger_auto_schema(
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'id': openapi.Schema(type=openapi.TYPE_ARRAY, items=openapi.Schema(type=openapi.TYPE_INTEGER)),
+            },
+            required=['id'],
+        ),
+        responses={204: 'Client deleted successfully.', 400: 'Client could not be deleted'},
+        operation_summary="Delete a client",
+    )
+    # Delete a client
     def delete(self, request):
         id_list_str = request.data.get('id')
         id_list = json.loads(id_list_str)
