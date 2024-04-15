@@ -2,7 +2,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Client
-from .serializers import  ClientSerializer, ClientUpdateSerializer
+from .serializers import  ClientSerializer, ClientAddUpdateSerializer
 from django.http import Http404
 from rest_framework import permissions
 from users.auth import TokenAuthentication
@@ -120,7 +120,7 @@ class ClientListCreateAPIView(APIView):
     def post(self, request):
         user = self.request.user
         request.data['user'] = user.id
-        serializer = self.serializer_class(data=request.data)
+        serializer = ClientAddUpdateSerializer(data=request.data)
         if serializer.is_valid():
             ethernet_ip = request.data.get('ethernet_ip')
             client_port = request.data.get('client_port')
@@ -128,8 +128,9 @@ class ClientListCreateAPIView(APIView):
                 return Response({"message": "Client could not be reached"}, status=status.HTTP_400_BAD_REQUEST)
             serializer.save()
             return Response({"message": "Client added successfully."}, status=status.HTTP_201_CREATED) 
+        elif 'Client already added' in str(serializer.errors):
+                return Response({"message": "Client already added"}, status=status.HTTP_400_BAD_REQUEST)
         return Response({"message": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
-
 
 
 '''
@@ -175,7 +176,7 @@ class ClientModifyAPIView(generics.RetrieveUpdateDestroyAPIView):
     
 
     @swagger_auto_schema(
-        request_body=ClientUpdateSerializer,
+        request_body=ClientAddUpdateSerializer,
         responses={201: 'Client updated successfully.', 400: 'Client could not be reached'},
         operation_summary="Update a client",
     )
@@ -183,7 +184,7 @@ class ClientModifyAPIView(generics.RetrieveUpdateDestroyAPIView):
     def put(self, request):
         id = request.data.get('id')
         client = self.get_object(id)
-        serializer = ClientUpdateSerializer(client, data=request.data)
+        serializer = ClientAddUpdateSerializer(client, data=request.data)
         
         if serializer.is_valid():
             ethernet_ip = request.data.get('ethernet_ip')
