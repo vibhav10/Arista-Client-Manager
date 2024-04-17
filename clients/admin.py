@@ -2,6 +2,11 @@ from django.contrib import admin
 from .models import Client
 
 
+
+admin.site.site_header = "WiFi Agent Admin"
+admin.site.site_title = "WiFi Agent Admin Portal"
+admin.site.index_title = "Welcome to WiFi Agent Admin Portal"
+
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):
     list_display = ('hostname', 'description', 'ethernet_ip', 'client_port', 'ethernet_status', 'wifi_status')
