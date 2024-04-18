@@ -49,6 +49,9 @@ class Client(models.Model):
 
 
     def __str__(self):
+        
+        if self.description is None:
+            return self.ethernet_ip + ':' + str(self.client_port)
         return self.description + ' - ' + self.ethernet_ip + ':' + str(self.client_port)
     
     def save(self, *args, **kwargs):
