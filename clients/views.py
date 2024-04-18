@@ -120,6 +120,7 @@ class ClientListCreateAPIView(APIView):
     def post(self, request):
         user = self.request.user
         request.data['user'] = user.id
+        print(request.data)
         serializer = ClientAddUpdateSerializer(data=request.data)
         if serializer.is_valid():
             ethernet_ip = request.data.get('ethernet_ip')

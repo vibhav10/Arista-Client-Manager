@@ -43,7 +43,10 @@ class Client(models.Model):
 
 
     class Meta:
+        #return error message ("message":"client aleready exists") if client with same ethernet_ip and client_port already exists
         unique_together = ('ethernet_ip', 'client_port')
+        
+
 
     def __str__(self):
         return self.description + ' - ' + self.ethernet_ip + ':' + str(self.client_port)

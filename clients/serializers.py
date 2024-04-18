@@ -17,7 +17,7 @@ class ClientSerializer(serializers.ModelSerializer):
 class ClientAddUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Client
-        fields = 'ethernet_ip', 'interface_name', 'client_username', 'client_password', 'client_lab', 'description', 'client_port'
+        fields = 'user', 'ethernet_ip', 'interface_name', 'client_username', 'client_password', 'client_lab', 'description', 'client_port'
 
     def validate(self, data):
         try:
