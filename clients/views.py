@@ -2,7 +2,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Client
-from .serializers import  ClientSerializer, ClientAddUpdateSerializer
+from .serializers import  ClientSerializer, ClientAddSerializer, ClientUpdateSerializer
 from django.http import Http404
 from rest_framework import permissions
 from users.auth import TokenAuthentication
@@ -121,7 +121,7 @@ class ClientListCreateAPIView(APIView):
         user = self.request.user
         request.data['user'] = user.id
         print(request.data)
-        serializer = ClientAddUpdateSerializer(data=request.data)
+        serializer = ClientAddSerializer(data=request.data)
         if serializer.is_valid():
             ethernet_ip = request.data.get('ethernet_ip')
             client_port = request.data.get('client_port')
@@ -177,7 +177,7 @@ class ClientModifyAPIView(generics.RetrieveUpdateDestroyAPIView):
     
 
     @swagger_auto_schema(
-        request_body=ClientAddUpdateSerializer,
+        request_body=ClientUpdateSerializer,
         responses={201: 'Client updated successfully.', 400: 'Client could not be reached'},
         operation_summary="Update a client",
     )
@@ -185,7 +185,7 @@ class ClientModifyAPIView(generics.RetrieveUpdateDestroyAPIView):
     def put(self, request):
         id = request.data.get('id')
         client = self.get_object(id)
-        serializer = ClientAddUpdateSerializer(client, data=request.data)
+        serializer = ClientUpdateSerializer(client, data=request.data)
         
         if serializer.is_valid():
             ethernet_ip = request.data.get('ethernet_ip')

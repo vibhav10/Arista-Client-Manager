@@ -45,7 +45,7 @@ class Command(BaseCommand):
                 )
                 print(f"Client {client.description} created for user {user.email}")
             except Exception as e:
-                print(f"Error creating client {description} for user {user.email}")
+                print(f"Error creating client {description} {ethernet_ip} for user {user.email}")
                 print(e)
                 continue
 

@@ -11,7 +11,7 @@ admin.site.index_title = "Welcome to WiFi Agent Admin Portal"
 class ClientAdmin(admin.ModelAdmin):
     list_display = ('hostname', 'description', 'ethernet_ip', 'client_port', 'ethernet_status', 'wifi_status')
     list_filter = ('ethernet_status', 'wifi_status','client_lab', 'created_at', 'updated_at')
-    search_fields = ('description', 'ethernet_ip', 'client_name', 'client_lab', 'ssid_name', 'wifi_ip', 'hostname') 
+    search_fields = ('description', 'ethernet_ip', 'user__email', 'client_lab', 'ssid_name', 'wifi_ip', 'hostname') 
     readonly_fields = ('created_at', 'updated_at')
     filter_horizontal = ()
     fieldsets = (

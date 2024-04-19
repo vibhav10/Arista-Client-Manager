@@ -1,39 +1,39 @@
 description,ethernet_ip,client_port,client_username,client_password,client_lab,interface
-ATN-LAP-725,10.87.168.230,8083,pune-lab,welcome,Pune-ABZ,en0
-ATN-LAP-707,10.87.168.17,8083,pune-lab,welcome,Pune-ABZ,en0
+ATN-LAP-725,10.87.168.230,8083,pune-lab,welcome,Pune-ABZ,en1
+ATN-LAP-707,10.87.168.17,8083,pune-lab,welcome,Pune-ABZ,en1
 ATN-LAP-708,10.87.168.165,8083,pune-lab,welcome,Pune-ABZ,en0
 ATN-LAP-717,10.87.168.175,8083,pune-lab,welcome,Pune-ABZ,en0
 ATN-LAP-688,10.87.168.211,8083,pune-lab,welcome,Pune-ABZ,en0
 ATN-LAP-682,10.87.168.183,8083,pune-lab,welcome,Pune-ABZ,en0
 ATN-LAP-705,10.87.168.225,8083,pune-lab,welcome,Pune-ABZ,en0
-ANP-LAP-289,10.87.168.237,8083,pune-lab,welcome,Pune-ABZ,en0
-ANP-LAP-288,10.87.168.220,8083,pune-lab,welcome,Pune-ABZ,en0
-ANP-LAP-273,10.87.168.201,8083,pune-lab,welcome,Pune-ABZ,en0
-ANP-LAP-287,10.87.168.174,8083,pune-lab,welcome,Pune-ABZ,en0
-ANP-LAP-575,10.87.168.28,8083,pune-lab,welcome,Pune-ABZ,en0
-ANP-LAP-573,10.87.168.29,8083,pune-lab,welcome,Pune-ABZ,en0
-ANP-LAP-566,10.87.168.30,8083,pune-lab,welcome,Pune-ABZ,en0
-ANP-LAP-567,10.87.168.33,8083,pune-lab,welcome,Pune-ABZ,en0
-ANP-LAP-564,10.87.163.34,8083,pune-lab,welcome,Pune-ABZ,en0
-ANP-LAP-569,10.87.168.31,8083,pune-lab,welcome,Pune-ABZ,en0
-ANP-LAP-557,10.87.168.37,8083,pune-lab,welcome,Pune-ABZ,en0
-ANP-LAP-574,10.87.168.35,8083,pune-lab,welcome,Pune-ABZ,en0
-ANP-LAP-580,10.87.168.36,8083,pune-lab,welcome,Pune-ABZ,en0
-ANP-LAP-581,10.87.168.32,8083,pune-lab,welcome,Pune-ABZ,en0
-Mac Mini,10.87.168.15,8083,pune-lab,welcome,Pune-ABZ,en0
-Mac Mini,10.87.168.11,8083,pune-lab,welcome,Pune-ABZ,en0
-Mac Mini,10.87.168.12,8083,pune-lab,welcome,Pune-ABZ,en0
-,10.87.168.13,8083,pune-lab,welcome,Pune-ABZ,en0
-,10.87.168.14,8083,pune-lab,welcome,Pune-ABZ,en0
-,10.87.168.16,8083,pune-lab,welcome,Pune-ABZ,en0
-,10.87.168.18,8083,pune-lab,welcome,Pune-ABZ,en0
-ANP-LAP-271,10.87.168.246,8083,pune-lab,welcome,Pune-ABZ,en0
-Mac Mini,10.87.168.19,8083,pune-lab,welcome,Pune-ABZ,en0
-Mac Mini,10.87.168.20,8083,pune-lab,welcome,Pune-ABZ,en0
-Mac Mini,10.87.168.21,8083,pune-lab,welcome,Pune-ABZ,en0
-Mac Mini,10.87.168.22,8083,pune-lab,welcome,Pune-ABZ,en0
-Mac Mini,10.87.168.23,8083,pune-lab,welcome,Pune-ABZ,en0
-Mac Mini,10.87.168.24,8083,pune-lab,welcome,Pune-ABZ,en0
-Mac Mini,10.87.168.25,8083,pune-lab,welcome,Pune-ABZ,en0
-Mac Mini,10.87.168.26,8083,pune-lab,welcome,Pune-ABZ,en0
-Mac Mini,10.87.168.27,8083,pune-lab,welcome,Pune-ABZ,en0
+ANP-LAP-289,10.87.168.237,8083,pune-lab,welcome,Pune-ABZ,Wi-Fi
+ANP-LAP-288,10.87.168.220,8083,pune-lab,welcome,Pune-ABZ,en1
+ANP-LAP-273,10.87.168.201,8083,pune-lab,welcome,Pune-ABZ,Wi-Fi
+ANP-LAP-287,10.87.168.174,8083,pune-lab,welcome,Pune-ABZ,Wi-Fi
+ANP-LAP-575,10.87.168.28,8083,pune-lab,welcome,Pune-ABZ,en1
+ANP-LAP-573,10.87.168.29,8083,pune-lab,welcome,Pune-ABZ,en1
+ANP-LAP-566,10.87.168.30,8083,pune-lab,welcome,Pune-ABZ,en1
+ANP-LAP-567,10.87.168.33,8083,pune-lab,welcome,Pune-ABZ,en1
+ANP-LAP-564,10.87.163.34,8083,pune-lab,welcome,Pune-ABZ,en1
+ANP-LAP-569,10.87.168.31,8083,pune-lab,welcome,Pune-ABZ,en1
+ANP-LAP-557,10.87.168.37,8083,pune-lab,welcome,Pune-ABZ,en1
+ANP-LAP-574,10.87.168.35,8083,pune-lab,welcome,Pune-ABZ,en1
+ANP-LAP-580,10.87.168.36,8083,pune-lab,welcome,Pune-ABZ,en1
+ANP-LAP-581,10.87.168.32,8083,pune-lab,welcome,Pune-ABZ,en1
+Mac Mini,10.87.168.15,8083,pune-lab,welcome,Pune-ABZ,en1
+Mac Mini,10.87.168.11,8083,pune-lab,welcome,Pune-ABZ,en1
+Mac Mini,10.87.168.12,8083,pune-lab,welcome,Pune-ABZ,en1
+,10.87.168.13,8083,pune-lab,welcome,Pune-ABZ,en1
+,10.87.168.14,8083,pune-lab,welcome,Pune-ABZ,en1
+,10.87.168.16,8083,pune-lab,welcome,Pune-ABZ,en1
+,10.87.168.18,8083,pune-lab,welcome,Pune-ABZ,en1
+ANP-LAP-271,10.87.168.246,8083,pune-lab,welcome,Pune-ABZ,Wi-Fi
+Mac Mini,10.87.168.19,8083,pune-lab,welcome,Pune-ABZ,en1
+Mac Mini,10.87.168.20,8083,pune-lab,welcome,Pune-ABZ,en1
+Mac Mini,10.87.168.21,8083,pune-lab,welcome,Pune-ABZ,en1
+Mac Mini,10.87.168.22,8083,pune-lab,welcome,Pune-ABZ,en1
+Mac Mini,10.87.168.23,8083,pune-lab,welcome,Pune-ABZ,en1
+Mac Mini,10.87.168.24,8083,pune-lab,welcome,Pune-ABZ,en1
+Mac Mini,10.87.168.25,8083,pune-lab,welcome,Pune-ABZ,en1
+Mac Mini,10.87.168.26,8083,pune-lab,welcome,Pune-ABZ,en1
+Mac Mini,10.87.168.27,8083,pune-lab,welcome,Pune-ABZ,en1
