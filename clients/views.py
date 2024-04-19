@@ -59,7 +59,7 @@ class ClientListCreateAPIView(APIView):
         url = f"http://{ethernet_ip}:{client_port}/version"
         print(url)
         try:
-            response = requests.get(url, timeout=1)
+            response = requests.get(url, timeout=3)
             if response.status_code == 200:
                 return True
         except:
@@ -68,7 +68,7 @@ class ClientListCreateAPIView(APIView):
     def get_interface_info(self, interface_name, ethernet_ip, client_port):
         url = f"http://{ethernet_ip}:{client_port}/device/wifi/interface/info?interfacename={interface_name}"
         try:
-            response = requests.get(url, timeout=1)
+            response = requests.get(url, timeout=3)
             if response.status_code == 200:
                 return response.json()
         except:
