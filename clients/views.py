@@ -186,7 +186,6 @@ class ClientModifyAPIView(generics.RetrieveUpdateDestroyAPIView):
         id = request.data.get('id')
         client = self.get_object(id)
         serializer = ClientUpdateSerializer(client, data=request.data)
-        
         if serializer.is_valid():
             ethernet_ip = request.data.get('ethernet_ip')
             client_port = request.data.get('client_port')

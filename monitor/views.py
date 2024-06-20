@@ -61,12 +61,11 @@ class ClientSpeedTestView(APIView):
     API methods
     '''
 
-    def get(self, request):
+    def post(self, request):
         user = request.user
         client_id = request.data.get('id')
         if client_id is None:
             return Response({'error': 'Client ID is required'}, status=status.HTTP_400_BAD_REQUEST)
-        
         try:
             client = Client.objects.get(id=client_id, user=user)
         except Client.DoesNotExist:
